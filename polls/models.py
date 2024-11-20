@@ -5,6 +5,7 @@ import datetime
 class Question(models.Model):
     question_text=models.CharField(max_length=200) # table id serial, name varchar(10)
     pub_date=models.DateTimeField("date published")
+
     def __str__(self):
         return self.question_text
     def was_published_recently(self):
@@ -21,3 +22,6 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+    def __str__(self):
+        return f"{self.choice_text}_투표수:{self.votes}_질문:{self.question.question_text}"
+    # 초이스텍스트_투표수:1_질문:가장인상깊은...
