@@ -1,0 +1,35 @@
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <label for="lion">First name:</label><br>
+    <input type="text" id="tiger" name="lion"><br>
+
+    <label for="tiger">Last name:</label><br>
+    <input type="text"  id="lion" name="tiger">
+
+<input type="submit" value="제출버튼">
+</form>
+
+
+ <!-- 폼 태그를 만들어서 view에서 post로 전송되는 값을 확인해 보겠습니다!! -->
+
+<form action="{% url 'polls:detail' question.id %}" method="post">
+    {% csrf_token %}
+
+    <input type="radio" id="html" name="fav_language" value="HTML">
+    <label for="html">HTML</label><br>
+    <input type="radio" id="css" name="fav_language" value="CSS">
+    <label for="css">CSS</label><br>
+    <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+    <label for="javascript">JavaScript</label>
+
+    <input type="submit" value="여기를 누르면 데이터가 전송됩니다.">
+</form>
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+
+    <label for="birthday">Birthday:</label>
+    <input type="date" id="birthday" name="birthday">
+    <input type="submit" value="여기를 누르면 날짜 데이터가 전송됩니다.">
+
+</form>

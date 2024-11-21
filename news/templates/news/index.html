@@ -2,6 +2,6 @@ News Index Page - 여기는 언론사 리스트가 나올거에요!!
 
 <ul>
 {% for company in company_list %}
-<li><a href="https://jtbc.co.kr/">{{company.name}}</a></li>
+<li><a href="{% url 'news:detail' company.id %}">{{company.name}}</a></li>
 {% endfor %}
 </ul>
