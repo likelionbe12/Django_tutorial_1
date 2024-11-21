@@ -19,5 +19,5 @@ from django.urls import path, include
 # from test_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('lion/', include('polls.urls')),
+    path('tiger/', include('polls.urls')),
 ]

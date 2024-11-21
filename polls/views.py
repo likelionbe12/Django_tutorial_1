@@ -5,15 +5,22 @@ from django.template import loader
 # Create your views here.
 
 def index(request): # request응답을 받는구조
-    questions = Question.objects.all()
+    questions_list = Question.objects.order_by("-pub_date")[:3]
+    # questions = Question.objects.order_by("-question_text")[:3]
     # q_text = Question.objects.all()[0].question_text
     # template = loader.get_template('polls/index.html') # polls/templates/polls/index.html
     # return HttpResponse(template.render({}, request))
-    context = {"questions":questions}
+    context = {"latest_questions_list":questions_list}
     return render(request, 'polls/index.html', context=context)
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at question %s." % question_id)
+    question = Question.objects.get(pk=question_id)
+    # choice_list = question.choice_set.all()
+    context = {
+        'question':question, 
+        # 'choice_list':choice_list
+    }
+    return render(request,'detail.html', context )
 
 
 def results(request, question_id):

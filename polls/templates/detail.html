@@ -1,0 +1,8 @@
+설문제목 : {{question.question_text}}
+{{question.pub_date}}
+
+<ul>
+    {% for choice in question.choice_set.all %}
+    <li>선택 : {{choice.choice_text}}</li>
+    {% endfor %}
+</ul>
