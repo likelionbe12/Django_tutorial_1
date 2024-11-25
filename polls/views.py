@@ -28,15 +28,34 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
+    question = Question.objects.get(pk=question_id)
+    context = {"question":question}
+    return render(request, 'polls/results.html', context)
+    # response = "You're looking at the results of question %s."
+    # return HttpResponse(response % question_id)
 
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 def vote(request, question_id):
-    lion = request.POST['lion']
-    tiger = request.POST['tiger']
-    return HttpResponse("You're voting on question %s %s." % (lion, tiger))
+    # error message 만들기
+    # 선택된 choice 항목의 votes 값을 1 증가 시키기
+    try:
+        choice = Choice.objects.get(pk=request.POST['choice'])
+        choice.votes+=1
+        choice.save()
+    except Choice.DoesNotExist:      
+    # except Exception:      
+        question = get_object_or_404(Question, pk=question_id)
+        # choice_list = question.choice_set.all()
+        context = {
+        'question':question, 
+        'error_message':"뭔가 잘못됐네요!!!"        
+        }
+        return render(request,'polls/detail.html', context )
 
+    # 다른 페이지 보여주기
+    return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
+    # return HttpResponseRedirect("https://www.naver.com")
 
 
 # def detail(request, question_id):
