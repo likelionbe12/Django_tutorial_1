@@ -8,8 +8,14 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
-    def was_published_recently(self):
-        return self.pub_date >=timezone.now()-datetime.timedelta(days=1)
+    def was_published_recently(self):        
+        now = timezone.now()
+        if self.pub_date > now:
+            is_valid = False  # pub_date가 미래면 False
+        else:
+            is_valid = self.pub_date >= now - datetime.timedelta(days=1)  # 1일 이내일 경우 True
+        return is_valid
+    
     def text_length(self):
         return len(self.question_text)
 
